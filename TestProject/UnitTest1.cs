@@ -18,12 +18,16 @@ namespace TestProject
         private IWebDriver driver;
         public string baseURL;
 
+        private IWebElement loginField;
+        private IWebElement passwordField;
+        private IWebElement submitButton;
+
         private By signIn = By.XPath("//td[@class]//a[text()='Вход']");
-        private By loginField = By.XPath("//span[@class='b-email__name']/input");
-        private By passwordField = By.XPath("//form[@name='login']//*[@name='Password']");
+        private string loginFieldPath = ("//span[@class='b-email__name']/input");
+        private string passwordFieldPath = ("//form[@name='login']//*[@name='Password']");
         private By buttonRememberMeOn = By.XPath("//form[@name='login']//*[@class='js-checkbox b-checkbox b-checkbox_checked b-checkbox_' and contains(@data-bem, 'checkbox')]");
         private By buttonRememberMeOff = By.XPath("//form[@name='login']//*[@class='js-checkbox b-checkbox b-checkbox_' and contains(@data-bem, 'checkbox')]");
-        private By buttonLogIn = By.XPath("//form[@name='login']//button/span[contains(text(), 'Войти')]");
+        private string submitButtonPath = ("//form[@name='login']//button/span[contains(text(), 'Войти')]");
         private By textErrorLogIn = By.XPath("//div[contains(text(),'Неверное имя пользователя или пароль. Проверьте правильность введенных данных.')]");
         private By loginFrame = By.CssSelector("iframe[class='ag-popup__frame__layout__iframe']");
 
@@ -63,22 +67,26 @@ namespace TestProject
             //this.driver.SwitchTo().Frame(1);
 
             //var frame = this.driver.SwitchTo().Frame(0);
-            this.driver.SwitchTo().Frame(1);
+            //this.driver.SwitchTo().Frame(1);
 
 
-            IsElementVisible(loginField);
+            IsElementVisible(By.XPath(loginFieldPath));
+            loginField = driver.FindElement(By.XPath(loginFieldPath));
+            passwordField = driver.FindElement(By.XPath(passwordFieldPath));
+            submitButton = driver.FindElement(By.XPath(submitButtonPath));
             //JavaScriptClick(this.driver.FindElement(signIn));
             //IAlert simpleAlert = driver.SwitchTo().Alert();
 
-            this.driver.FindElement(loginField).SendKeys("FakeLogin");
-            this.driver.FindElement(passwordField).SendKeys("FakePassword");
+
+            loginField.SendKeys("FakeLogin");
+            passwordField.SendKeys("FakePassword");
 
             /*if (this.driver.FindElements(buttonRememberMeOn).Count > 0)
             {
                 this.driver.FindElement(buttonRememberMeOn).Click();
             }*/
 
-            this.driver.FindElement(buttonLogIn).Click();
+            submitButton.Click();
             //JavaScriptClick(driver.FindElement(buttonLogIn));
             Assert.IsTrue(driver.FindElements(textErrorLogIn).Count > 0);
         }
