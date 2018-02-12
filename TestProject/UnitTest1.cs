@@ -23,13 +23,14 @@ namespace TestProject
         private IWebElement submitButton;
 
         private By signIn = By.XPath("//td[@class]//a[text()='Вход']");
+        private By loginFrameLocator = By.XPath("//iframe[@class='ag-popup__frame__layout__iframe']");
         private string loginFieldPath = ("//span[@class='b-email__name']/input");
         private string passwordFieldPath = ("//form[@name='login']//*[@name='Password']");
         private By buttonRememberMeOn = By.XPath("//form[@name='login']//*[@class='js-checkbox b-checkbox b-checkbox_checked b-checkbox_' and contains(@data-bem, 'checkbox')]");
         private By buttonRememberMeOff = By.XPath("//form[@name='login']//*[@class='js-checkbox b-checkbox b-checkbox_' and contains(@data-bem, 'checkbox')]");
         private string submitButtonPath = ("//form[@name='login']//button/span[contains(text(), 'Войти')]");
         private By textErrorLogIn = By.XPath("//div[contains(text(),'Неверное имя пользователя или пароль. Проверьте правильность введенных данных.')]");
-        private By loginFrame = By.CssSelector("iframe[class='ag-popup__frame__layout__iframe']");
+        private By loginFrame = By.XPath("");
 
         private string configValue = ConfigurationSettings.AppSettings["BrowserC"];
 
@@ -61,14 +62,9 @@ namespace TestProject
         [TestMethod]
         public void TestMethod1()
         {
-            driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(6);
+            driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(9);
             this.driver.FindElement(signIn).Click();
             //this.driver.SwitchTo().Frame(this.driver.FindElement(loginFrame));
-            //this.driver.SwitchTo().Frame(1);
-
-            //var frame = this.driver.SwitchTo().Frame(0);
-            //this.driver.SwitchTo().Frame(1);
-
 
             IsElementVisible(By.XPath(loginFieldPath));
             loginField = driver.FindElement(By.XPath(loginFieldPath));
@@ -98,9 +94,13 @@ namespace TestProject
             this.driver.Quit();
         }
 
-        public void IsElementVisible(By element, int timeoutSecs = 3)
+        public void IsElementVisible(By element, int timeoutSecs = 10)
         {
-            new WebDriverWait(this.driver, TimeSpan.FromSeconds(timeoutSecs)).Until(ExpectedConditions.ElementIsVisible(element));
+            var frameDriver = driver.SwitchTo().Frame(driver.FindElement(loginFrameLocator));
+            frameDriver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
+            Thread.Sleep(3000);
+            var webElement = frameDriver.FindElements(element);
+            new WebDriverWait(frameDriver, TimeSpan.FromSeconds(timeoutSecs)).Until(ExpectedConditions.ElementIsVisible(element));
         }
 
         public void JavaScriptClick(IWebElement element)
