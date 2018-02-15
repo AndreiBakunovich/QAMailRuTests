@@ -1,17 +1,12 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using NUnit.Framework;
 
 namespace TestProject.driver
 {
-    class BaseTest
+    public class BaseTest
     {
         protected static Browser Browser = Browser.Instance;
 
-        [TestInitialize]
+        [SetUp]
         public virtual void InitTest()
         {
             Browser = Browser.Instance;
@@ -19,7 +14,7 @@ namespace TestProject.driver
             Browser.NavigateTo(Configuration.StartURL);
         }
 
-        [TestCleanup]
+        [TearDown]
         public virtual void CleanTest()
         {
             Browser.Quit();

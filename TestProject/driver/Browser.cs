@@ -1,9 +1,5 @@
 ﻿using OpenQA.Selenium;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TestProject.driver;
 
 namespace TestProject
@@ -13,6 +9,7 @@ namespace TestProject
         private static Browser currentInstane;
         private static IWebDriver driver;
         public static BrowserFactory.BrowserType currentBrowser;
+        public static Browser Instance => currentInstane ?? (currentInstane = new Browser());
         public static int implWait;
         public static double timeoutForElement;
         private static string browser;
@@ -31,8 +28,6 @@ namespace TestProject
             Enum.TryParse(browser, out currentBrowser);
         }
 
-        public static Browser Instance => currentInstane ?? (currentInstane = new Browser());
-
         public static void WindowMaximise()
         {
             driver.Manage().Window.Maximize();
@@ -50,6 +45,7 @@ namespace TestProject
 
         public static void Quit()
         {
+            driver.Close();
             driver.Quit();
             currentInstane = null;
             driver = null;

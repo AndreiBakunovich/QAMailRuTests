@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Configuration;
 
 namespace TestProject.driver
 {
@@ -19,5 +14,9 @@ namespace TestProject.driver
         public static string Browser => GetEnvironmentVar("Browser", "Chrome");
 
         public static string StartURL => GetEnvironmentVar("StartURL", "https://mail.ru");
+
+        public static string Login => GetEnvironmentVar("Login", "login_test11");
+
+        public static string Password => GetEnvironmentVar("Password", "pAsswOrd11");
     }
 }

@@ -1,9 +1,8 @@
 ﻿using OpenQA.Selenium;
 using System;
-using System;
+using System.Threading;
 using System.Collections.ObjectModel;
 using System.Drawing;
-using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
 
 namespace TestProject.driver
@@ -52,7 +51,6 @@ namespace TestProject.driver
             }
             catch (Exception)
             {
-
                 throw;
             }
             return this.element;
