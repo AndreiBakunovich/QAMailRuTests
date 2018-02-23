@@ -37,6 +37,11 @@ namespace TestProject.driver
             new WebDriverWait(Browser.GetDriver(), TimeSpan.FromSeconds(Browser.timeoutForElement)).Until(ExpectedConditions.ElementIsVisible(this.locator));
         }
 
+        public void WaitForIsClicable()
+        {
+            new WebDriverWait(Browser.GetDriver(), TimeSpan.FromSeconds(Browser.timeoutForElement)).Until(ExpectedConditions.ElementToBeClickable(this.locator));
+        }
+
         public BaseElement(By locator)
         {
             this.locator = locator;
@@ -73,6 +78,7 @@ namespace TestProject.driver
         public void Click()
         {
             this.WaitForIsVisible();
+            this.WaitForIsClicable();
             Browser.GetDriver().FindElement(this.locator).Click();
         }
 
