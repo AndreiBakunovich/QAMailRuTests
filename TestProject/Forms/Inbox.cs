@@ -1,5 +1,4 @@
 ﻿using OpenQA.Selenium;
-using System;
 using TestProject.driver;
 
 namespace TestProject.Forms
