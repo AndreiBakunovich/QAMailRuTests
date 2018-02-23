@@ -67,7 +67,8 @@
     <Compile Include="driver\Configuration.cs" />
     <Compile Include="Forms\HomePage.cs" />
     <Compile Include="Forms\AuthorizationPage.cs" />
-    <Compile Include="Forms\Inbox.cs" />
+    <Compile Include="Forms\InboxPage.cs" />
+    <Compile Include="Forms\TrashPage.cs" />
     <Compile Include="UnitTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
