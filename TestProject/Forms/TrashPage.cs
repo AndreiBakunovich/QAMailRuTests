@@ -1,12 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using TestProject.driver;
+using OpenQA.Selenium;
 
 namespace TestProject.Forms
 {
-    class TrashPage
+    class TrashPage : BaseForm
     {
+        private static readonly By trashLabel = By.XPath("");
+
+        protected TrashPage() : base(homeLabel, "Inbox")
+        {
+        }
     }
 }
